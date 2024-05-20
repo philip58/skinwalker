@@ -654,10 +654,10 @@ MonoBehaviour:
       enabled: 1
       randomPitch: 1
       pitch: 1
-      minPitch: 0.9
-      maxPitch: 1.1
+      minPitch: 0.5
+      maxPitch: 0.8
       changeVolume: 1
-      volume: 1
+      volume: 0.06
       audioClips:
       - {fileID: 8300000, guid: 44e59b73420f0e64fb30e755c49b3823, type: 3}
       - {fileID: 8300000, guid: 62e6bf700540ea9478b91b33afa85e7e, type: 3}
@@ -667,10 +667,10 @@ MonoBehaviour:
       enabled: 1
       randomPitch: 1
       pitch: 1.4
-      minPitch: 1.4
-      maxPitch: 1.6
+      minPitch: 0.5
+      maxPitch: 0.8
       changeVolume: 1
-      volume: 1
+      volume: 0.1
       audioClips:
       - {fileID: 8300000, guid: 44e59b73420f0e64fb30e755c49b3823, type: 3}
       - {fileID: 8300000, guid: 62e6bf700540ea9478b91b33afa85e7e, type: 3}
@@ -693,10 +693,10 @@ MonoBehaviour:
       enabled: 1
       randomPitch: 1
       pitch: 1
-      minPitch: 0.9
-      maxPitch: 1.1
+      minPitch: 0.5
+      maxPitch: 0.7
       changeVolume: 1
-      volume: 1
+      volume: 0.2
       audioClips:
       - {fileID: 8300000, guid: 11cc82c4daa9f304dbbfab62c9207608, type: 3}
     landing:
@@ -706,7 +706,7 @@ MonoBehaviour:
       minPitch: 0.9
       maxPitch: 1.1
       changeVolume: 1
-      volume: 1
+      volume: 0.32
       audioClips:
       - {fileID: 8300000, guid: ceb0f9d730c213441b4eaccb59f6fcde, type: 3}
     footstepsSource: {fileID: 1006459028637187720}
