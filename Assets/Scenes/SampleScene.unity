@@ -1368,7 +1368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       propertyPath: movement.canJump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       propertyPath: movement.canCrouch

@@ -34,6 +34,10 @@ public class PlayerScript : MonoBehaviour
     // Flashight on/off boolean to activate/deactivate flashlight, initially off
     private bool isFlashlightOn = false;
 
+    // Boolean (initially false) to show if player started the mission to find the cabin 
+    // aka, they have left the original cabin and started their search for the cabin
+    private bool missionStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,25 +106,42 @@ public class PlayerScript : MonoBehaviour
     {
         // If the player walks through the beginning trigger (GameStartTrigger) set that trigger inactive
         // Here the game starts officially and the cabin will teleport
-        if(collision.gameObject == GameObject.FindGameObjectWithTag("Start"))
+        if(collision.gameObject == GameObject.FindGameObjectWithTag("Start") && !missionStarted)
         {
-            Debug.Log("Player has left the cabin for the first time");
+            // Set trigger as inactive, to do: add coroutine to set it active after a few seconds
             collision.gameObject.SetActive(false);
-            StartGame();
+            StartGame(collision.gameObject);
         }
+
+        // If the player walks into the cabin after finding it again, player wins the game
+        if(collision.gameObject == GameObject.FindGameObjectWithTag("Start") && missionStarted)
+        {
+            GameWon();
+        }
+
+    }
+
+    // Function for winning the game, aka the player finds the cabin and walks in
+    void GameWon()
+    {
+        Debug.Log("Congratulations, you win!!!");
     }
 
     // Function for starting the game once player leaves the cabin for the first time
     // Beginning sequence teleport cabin randomly, starter cutscene, possible text objective etc.
-    void StartGame()
+    void StartGame(GameObject trigger)
     {
-        // Teleport cabin to random cabin spawn point
+        // Teleport cabin to random cabin spawn point and start mission to find the cabin
+        Debug.Log("Player has left the cabin for the first time");
         int rand = Random.Range(0, 3);
         cabin.transform.position = cabinSpawnPoints[rand].transform.position;
+        missionStarted = true;
+
+        // Re-activate the cabin trigger for game winning logic
+        StartCoroutine(ReActivateTrigger(trigger));
 
         // Set the enemy to chase the player
-        // Should be after 5 seconds, to do: add coroutine for this
-        enemyScript.SetIsChasing(true);
+        StartCoroutine(StartChase());
     } 
 
     // On play game button clicked, start game for player, disable button and enable movement
@@ -131,5 +152,20 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameStarted = true;
+    }
+
+    // Coroutine function to make the enemy chase the player 5 seconds after leaving the cabin
+    private IEnumerator StartChase()
+    {
+        yield return new WaitForSeconds(5);
+        enemyScript.SetIsChasing(true);
+        Debug.Log("Enemy is now chasing the player");
+    }
+
+    // Coroutine for re-activating the cabin trigger after player leaves the cabin
+    private IEnumerator ReActivateTrigger(GameObject trigger)
+    {
+        yield return new WaitForSeconds(5);
+        trigger.gameObject.SetActive(true);
     }
 }
