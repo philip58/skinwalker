@@ -9,6 +9,7 @@ TagManager:
   - Cabin
   - CabinSpawnPoint
   - PlayGameButton
+  - Flashlight
   layers:
   - Default
   - TransparentFX

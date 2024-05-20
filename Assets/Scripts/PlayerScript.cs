@@ -25,6 +25,15 @@ public class PlayerScript : MonoBehaviour
     // Cursor is locked variable
     private bool isLocked = false;
 
+    // Game started boolean, false initially, true when player clicks play game button
+    private bool gameStarted = false;
+
+    // Flashlight gameobject
+    private Light flashlight;
+
+    // Flashight on/off boolean to activate/deactivate flashlight, initially off
+    private bool isFlashlightOn = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +58,12 @@ public class PlayerScript : MonoBehaviour
         button = GameObject.Find("PlayGame").GetComponent<Button>();
 
         Debug.Log("Button" + button);
+
+        // Get flashlight game object
+        flashlight = GameObject.Find("Flashlight").GetComponent<Light>();
+
+        Debug.Log("Flashlight: " + flashlight);
+
     }
 
     // Update is called once per frame
@@ -59,6 +74,17 @@ public class PlayerScript : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+
+        // Handle game logic in here that only occurs after the player presses play game button
+        if(gameStarted)
+        {
+            // Turn off the flashlight when player presses F
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                flashlight.enabled = !isFlashlightOn;
+                isFlashlightOn = !isFlashlightOn;
+            }
         }
     
     }
@@ -104,5 +130,6 @@ public class PlayerScript : MonoBehaviour
         isLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        gameStarted = true;
     }
 }
