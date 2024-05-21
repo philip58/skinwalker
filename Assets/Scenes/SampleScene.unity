@@ -247,7 +247,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206200791}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1246,12 +1246,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501137109}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.0025979576, z: -0, w: 0.9999966}
-  m_LocalPosition: {x: -0.19999728, y: 3.2999973, z: 8.990007}
-  m_LocalScale: {x: 5.2531786, y: 6.319061, z: 0.2558135}
+  m_LocalRotation: {x: -0, y: -0.32906538, z: -0, w: 0.94430715}
+  m_LocalPosition: {x: -25.53022, y: 35.17316, z: -81.63773}
+  m_LocalScale: {x: 2.4724374, y: 2.9741, z: 0.12040001}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 336956560379979584}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -38.424, z: 0}
 --- !u!54 &1501137111
 Rigidbody:
@@ -1308,7 +1308,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501137109}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2485,10 +2485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5299028589233168130, guid: 5688696b20e709d449edf5a89adc5fde, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1501137110}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1723139819078692898, guid: 5688696b20e709d449edf5a89adc5fde, type: 3}
       insertIndex: -1
@@ -2500,11 +2497,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1346764561}
   m_SourcePrefab: {fileID: 100100000, guid: 5688696b20e709d449edf5a89adc5fde, type: 3}
---- !u!4 &336956560379979584 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5299028589233168130, guid: 5688696b20e709d449edf5a89adc5fde, type: 3}
-  m_PrefabInstance: {fileID: 336956560379979583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8264982375253099661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2577,6 +2569,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1804065439}
   - {fileID: 1659426725}
+  - {fileID: 1501137110}
   - {fileID: 336956560379979583}
   - {fileID: 2070853624}
   - {fileID: 193805787}
