@@ -47,6 +47,16 @@ public class EnemyScript : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             mAnimator.SetTrigger("TrWalk");
         }
+        // If the player gets too close, enemy goes in for the kill
+        else if(Vector3.Distance(transform.position, player.transform.position) <= 5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            mAnimator.SetTrigger("TrWalk");
+        }
+        else
+        {
+            mAnimator.SetTrigger("TrIdle");
+        }
 
         // Enemy behavior changed, no idle state 
         /*
