@@ -10,6 +10,7 @@ TagManager:
   - CabinSpawnPoint
   - PlayGameButton
   - Flashlight
+  - RestartGameButton
   layers:
   - Default
   - TransparentFX

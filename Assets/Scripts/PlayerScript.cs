@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -54,6 +55,12 @@ public class PlayerScript : MonoBehaviour
     // Public variable for the timer for starting the hunt (in seconds)
     public float timer = 180f;
 
+    // Public button variable for restarting the game
+    public Button restartButton;
+
+    // Boolean for locking the player's movement and rotation
+    private bool playerIsLocked = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +97,10 @@ public class PlayerScript : MonoBehaviour
         // Keep win text off until win
         wintext.gameObject.SetActive(false);
 
+        // Keep restart game button off until game is lost/won
+        restartButton = GameObject.FindGameObjectWithTag("RestartGameButton").GetComponent<Button>();
+        restartButton.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -112,7 +123,7 @@ public class PlayerScript : MonoBehaviour
                 isFlashlightOn = !isFlashlightOn;
             }
         }
-        else
+        if(playerIsLocked)
         {
             transform.position = new Vector3(-22.9500008f,34.8069992f,-88.2099991f);
             GameObject.Find("Camera Head").transform.rotation = Quaternion.Euler(0,0,0);
@@ -165,6 +176,14 @@ public class PlayerScript : MonoBehaviour
         
         wintext.gameObject.SetActive(true);
 
+        // Set the chasing and hunting value to false to stop the enemy
+        enemyIsHunting = false;
+        enemyScript.SetIsChasing(false);
+        enemy.SetActive(false);
+        playerIsLocked = true;
+
+        // Display restart button
+        StartCoroutine(DisplayRestartButton());
     }
 
     // Function for losing the game, the player gets killed by the enemy
@@ -174,6 +193,11 @@ public class PlayerScript : MonoBehaviour
         // Set the chasing and hunting value to false to stop the enemy
         enemyIsHunting = false;
         enemyScript.SetIsChasing(false);
+        enemy.SetActive(false);
+        playerIsLocked = true;
+
+        // Display restart button
+        StartCoroutine(DisplayRestartButton());
     }
 
     // Function for starting the game once player leaves the cabin for the first time
@@ -206,6 +230,7 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameStarted = true;
+        playerIsLocked = false;
     }
 
     // Coroutine function to make the enemy chase the player 5 seconds after leaving the cabin
@@ -228,5 +253,46 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         enemyIsHunting = true;
+    }
+
+    // Coroutine for displaying the restart button after dying and getting jumpscared
+    private IEnumerator DisplayRestartButton()
+    {
+        yield return new WaitForSeconds(10);
+        restartButton.gameObject.SetActive(true);
+        isLocked = false;
+    }
+
+    // Function for restarting the game on restart button click
+    public void RestartGame()
+    {
+        // Restart the game, respawn player, cabin and enemy in the beginning
+        Debug.Log("Restarting game...");
+
+        // Disable restart button and win text
+        restartButton.gameObject.SetActive(false);
+        wintext.gameObject.SetActive(false);
+
+        // Disable jumpscare 
+        jumpscarePlayer.GetComponent<VideoPlayer>().Stop();
+
+        // Lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        isLocked = true;
+
+        // Unlock player
+        playerIsLocked = false;
+
+        enemy.SetActive(true);
+        enemyScript.SetIsChasing(false);
+
+        //Respawn cabin, player and enemy to original spawn points
+        cabin.transform.position = GameObject.Find("CabinOriginalSpawnPoint").transform.position;
+        gameObject.transform.position = GameObject.Find("PlayerOriginalSpawnPoint").transform.position;
+        enemy.transform.position = GameObject.Find("EnemyOriginalSpawnPoint").transform.position;
+
+        // Set mission started boolean false to stop the previous mission to find the forest
+        missionStarted = false;
     }
 }
