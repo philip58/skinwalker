@@ -60,6 +60,8 @@ public class PlayerScript : MonoBehaviour
 
     // Boolean for locking the player's movement and rotation
     private bool playerIsLocked = true;
+    //scream sound
+    public AudioSource audioData;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +98,9 @@ public class PlayerScript : MonoBehaviour
 
         // Keep win text off until win
         wintext.gameObject.SetActive(false);
+        //get scream sound
+         AudioSource audioData = GetComponent<AudioSource>();
+         if (audioData == null) audioData = gameObject.AddComponent<AudioSource>();
 
         // Keep restart game button off until game is lost/won
         restartButton = GameObject.FindGameObjectWithTag("RestartGameButton").GetComponent<Button>();
@@ -237,6 +242,7 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StartChase()
     {
         yield return new WaitForSeconds(10);
+        audioData.Play();
         enemyScript.SetIsChasing(true);
         Debug.Log("Enemy is now chasing the player");
     }
@@ -252,7 +258,9 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StartTheHunt(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        audioData.Play();
         enemyIsHunting = true;
+
     }
 
     // Coroutine for displaying the restart button after dying and getting jumpscared
