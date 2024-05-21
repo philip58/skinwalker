@@ -20,8 +20,17 @@ public class PlayerScript : MonoBehaviour
     // Enemy Script
     private EnemyScript enemyScript;
 
+    //vidplayer webgl
+    private GameObject jumpscare;
+
+    //vidplayer script
+    private VidPlayer vidPlayer;
+
     // Button variable
     public Button button;
+
+    //rawimg var
+    public GameObject raw;
 
     // Cursor is locked variable
     private bool isLocked = false;
@@ -41,8 +50,8 @@ public class PlayerScript : MonoBehaviour
 
     //Jumpscare
     //Time to stop determines when video will end
-    public GameObject jumpscarePlayer;
-    public int timeToStop;
+   // public GameObject jumpscarePlayer;
+   // public int timeToStop;
 
     //Text fields
     //Intro Text
@@ -65,7 +74,8 @@ public class PlayerScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+                raw.SetActive(false);
         // Get the cabin and cabin spawn points for game logic
         cabin = GameObject.FindGameObjectWithTag("Cabin");
 
@@ -83,6 +93,10 @@ public class PlayerScript : MonoBehaviour
 
         enemyScript = enemy.GetComponent<EnemyScript>(); 
 
+        //get vidplayer
+        jumpscare = GameObject.FindGameObjectWithTag("Vidplayer");
+        vidPlayer = jumpscare.GetComponent<VidPlayer>();
+
         // Get button component
         button = GameObject.Find("PlayGame").GetComponent<Button>();
 
@@ -94,7 +108,7 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Flashlight: " + flashlight);
 
         // Keep video off until collision
-        jumpscarePlayer.SetActive(false);
+       // jumpscarePlayer.SetActive(false);
 
         // Keep win text off until win
         wintext.gameObject.SetActive(false);
@@ -145,9 +159,8 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject == GameObject.FindGameObjectWithTag("Enemy"))
         {
             Debug.Log("Hit by enemy: " + collision.gameObject);
-
             //jumpscare video to play
-            jumpscarePlayer.SetActive(true);
+          //  jumpscarePlayer.SetActive(true);
           
           //destroys video player after timeToStop seconds
           //  Destroy(jumpscarePlayer, timeToStop);
@@ -194,6 +207,8 @@ public class PlayerScript : MonoBehaviour
     // Function for losing the game, the player gets killed by the enemy
     void GameLost()
     {
+         vidPlayer.playScare = true;
+         vidPlayer.Scare();
         Debug.Log("You lost!!!");
         // Set the chasing and hunting value to false to stop the enemy
         enemyIsHunting = false;
@@ -203,6 +218,8 @@ public class PlayerScript : MonoBehaviour
 
         // Display restart button
         StartCoroutine(DisplayRestartButton());
+                 raw.SetActive(true);
+
     }
 
     // Function for starting the game once player leaves the cabin for the first time
@@ -214,7 +231,6 @@ public class PlayerScript : MonoBehaviour
         int rand = Random.Range(0, 3);
         cabin.transform.position = cabinSpawnPoints[rand].transform.position;
         missionStarted = true;
-        enemyScript.speed = 3f;
 
         // Re-activate the cabin trigger for game winning logic
         StartCoroutine(ReActivateTrigger(trigger));
@@ -229,6 +245,7 @@ public class PlayerScript : MonoBehaviour
     // On play game button clicked, start game for player, disable button and enable movement
     public void PlayGame()
     {
+
         introtext.gameObject.SetActive(false);
 
         button.gameObject.SetActive(false);
@@ -270,11 +287,15 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(10);
         restartButton.gameObject.SetActive(true);
         isLocked = false;
+               
+
     }
 
     // Function for restarting the game on restart button click
     public void RestartGame()
-    {
+    {  
+        raw.SetActive(false);
+        vidPlayer.playScare = false;
         // Restart the game, respawn player, cabin and enemy in the beginning
         Debug.Log("Restarting game...");
 
@@ -283,8 +304,8 @@ public class PlayerScript : MonoBehaviour
         wintext.gameObject.SetActive(false);
 
         // Disable jumpscare 
-        jumpscarePlayer.GetComponent<VideoPlayer>().Stop();
-        jumpscarePlayer.SetActive(false);
+       // jumpscarePlayer.GetComponent<VideoPlayer>().Stop();
+       // jumpscarePlayer.SetActive(false);
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -296,7 +317,6 @@ public class PlayerScript : MonoBehaviour
 
         enemy.SetActive(true);
         enemyScript.SetIsChasing(false);
-        enemyScript.speed = 3f;
 
         //Respawn cabin, player and enemy to original spawn points
         cabin.transform.position = GameObject.Find("CabinOriginalSpawnPoint").transform.position;
