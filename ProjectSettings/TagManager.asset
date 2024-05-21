@@ -11,6 +11,7 @@ TagManager:
   - PlayGameButton
   - Flashlight
   - RestartGameButton
+  - Vidplayer
   layers:
   - Default
   - TransparentFX
