@@ -27,7 +27,8 @@ public class VidPlayer : MonoBehaviour
     }
 
     public void Scare(){
-                if(videoPlayer && playScare){
+        if(videoPlayer && playScare)
+        {
             videoPlayer.frame = 0;
             string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
             Debug.Log(videoPath);
