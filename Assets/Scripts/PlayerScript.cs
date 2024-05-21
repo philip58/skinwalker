@@ -38,9 +38,26 @@ public class PlayerScript : MonoBehaviour
     // aka, they have left the original cabin and started their search for the cabin
     private bool missionStarted = false;
 
+    //Jumpscare
+    //Time to stop determines when video will end
+    public GameObject jumpscarePlayer;
+    public int timeToStop;
+
+    //Text fields
+    //Intro Text
+    public TextMeshProUGUI introtext;
+    //Win Text
+    public TextMeshProUGUI wintext;
+    // Boolean for if the 3 minute timer runs out and the enemy is now hunting (chasing to kill)
+    public bool enemyIsHunting = false;
+
+    // Public variable for the timer for starting the hunt (in seconds)
+    public float timer = 180f;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         // Get the cabin and cabin spawn points for game logic
         cabin = GameObject.FindGameObjectWithTag("Cabin");
 
@@ -67,6 +84,10 @@ public class PlayerScript : MonoBehaviour
         flashlight = GameObject.Find("Flashlight").GetComponent<Light>();
 
         Debug.Log("Flashlight: " + flashlight);
+        //Keep video off until collision
+        jumpscarePlayer.SetActive(false);
+        //Keep win text off until win
+        wintext.gameObject.SetActive(false);
 
     }
 
@@ -96,9 +117,17 @@ public class PlayerScript : MonoBehaviour
     // Detect collisions with the player
     private void OnCollisionEnter(Collision collision)
     {
+        // Player collides with enemy
         if (collision.gameObject == GameObject.FindGameObjectWithTag("Enemy"))
         {
             Debug.Log("Hit by enemy: " + collision.gameObject);
+
+            //jumpscare video to play
+            jumpscarePlayer.SetActive(true);
+          
+          //destroys video player after timeToStop seconds
+          //  Destroy(jumpscarePlayer, timeToStop);
+            GameLost();
         }
     }
 
@@ -125,6 +154,18 @@ public class PlayerScript : MonoBehaviour
     void GameWon()
     {
         Debug.Log("Congratulations, you win!!!");
+        
+        wintext.gameObject.SetActive(true);
+
+    }
+
+    // Function for losing the game, the player gets killed by the enemy
+    void GameLost()
+    {
+        Debug.Log("You lost!!!");
+        // Set the chasing and hunting value to false to stop the enemy
+        enemyIsHunting = false;
+        enemyScript.SetIsChasing(false);
     }
 
     // Function for starting the game once player leaves the cabin for the first time
@@ -142,11 +183,16 @@ public class PlayerScript : MonoBehaviour
 
         // Set the enemy to chase the player
         StartCoroutine(StartChase());
+
+        // Set the timer for the hunt to start where enemy chases the player constantly
+        StartCoroutine(StartTheHunt(timer));
     } 
 
     // On play game button clicked, start game for player, disable button and enable movement
     public void PlayGame()
     {
+        introtext.gameObject.SetActive(false);
+
         button.gameObject.SetActive(false);
         isLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -167,5 +213,12 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         trigger.gameObject.SetActive(true);
+    }
+
+    // Coroutine for setting the timer, after the seconds inputted, start the enemy's hunt for the player
+    private IEnumerator StartTheHunt(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        enemyIsHunting = true;
     }
 }

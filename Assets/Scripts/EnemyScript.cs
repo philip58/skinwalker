@@ -11,6 +11,9 @@ public class EnemyScript : MonoBehaviour
     // Player game object
     public GameObject player;
 
+    // Public chase distance variable, aka the distance between the player and enemy where enemy stops chasing
+    public float chaseDistance = 10f;
+
     // Player is chasing boolean, initially false 
     // then set to true 5 seconds after beginning sequence (StartGame() in PlayerScript)
     private bool isChasing = false;
@@ -27,9 +30,23 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isChasing)
+        // Enemy chases the player when the distance between itself and the player is greater than the chase distance
+        if (isChasing && Vector3.Distance(transform.position, player.transform.position) > chaseDistance && player.GetComponent<PlayerScript>().enemyIsHunting == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            Debug.Log("Enemy chasing...");
+        }
+        // After the timer goes down, enemy goes into hunting state and constantly chases the player
+        else if(player.GetComponent<PlayerScript>().enemyIsHunting == true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            Debug.Log("Enemy hunting...");
+        }
+        // Idle state, enemy is within the chase distance and isn't in hunting state so it stands still
+        else if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= chaseDistance && player.GetComponent<PlayerScript>().enemyIsHunting == false)
+        {
+            // Idle animation
+            Debug.Log("Enemy idle...");
         }
 
         //to face player
