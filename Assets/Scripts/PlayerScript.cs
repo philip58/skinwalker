@@ -185,7 +185,10 @@ public class PlayerScript : MonoBehaviour
         enemyIsHunting = false;
         enemyScript.SetIsChasing(false);
         enemy.SetActive(false);
+
+        // Lock the player
         playerIsLocked = true;
+        gameObject.GetComponent<CharacterController>().enabled = false;
 
         // Display restart button
         StartCoroutine(DisplayRestartButton());
@@ -199,7 +202,10 @@ public class PlayerScript : MonoBehaviour
         enemyIsHunting = false;
         enemyScript.SetIsChasing(false);
         enemy.SetActive(false);
+        
+        // Lock the player
         playerIsLocked = true;
+        gameObject.GetComponent<CharacterController>().enabled = false;
 
         // Display restart button
         StartCoroutine(DisplayRestartButton());
@@ -302,7 +308,6 @@ public class PlayerScript : MonoBehaviour
         //Respawn cabin, player and enemy to original spawn points
         cabin.transform.position = GameObject.Find("CabinOriginalSpawnPoint").transform.position;
         enemy.transform.position = GameObject.Find("EnemyOriginalSpawnPoint").transform.position;
-        gameObject.GetComponent<CharacterController>().enabled = false;
         gameObject.transform.position = GameObject.Find("PlayerOriginalSpawnPoint").transform.position;
         gameObject.GetComponent<CharacterController>().enabled = true;
 
