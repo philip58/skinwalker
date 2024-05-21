@@ -103,8 +103,8 @@ public class PlayerScript : MonoBehaviour
          if (audioData == null) audioData = gameObject.AddComponent<AudioSource>();
 
         // Keep restart game button off until game is lost/won
-        restartButton = GameObject.FindGameObjectWithTag("RestartGameButton").GetComponent<Button>();
-        restartButton.gameObject.SetActive(false);
+        // restartButton = GameObject.Find("RestartGame").GetComponent<Button>();
+        // restartButton.gameObject.SetActive(false);
 
     }
 
@@ -203,6 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         // Display restart button
         StartCoroutine(DisplayRestartButton());
+        playerIsLocked = true;
     }
 
     // Function for starting the game once player leaves the cabin for the first time
@@ -300,10 +301,14 @@ public class PlayerScript : MonoBehaviour
 
         //Respawn cabin, player and enemy to original spawn points
         cabin.transform.position = GameObject.Find("CabinOriginalSpawnPoint").transform.position;
-        gameObject.transform.position = GameObject.Find("PlayerOriginalSpawnPoint").transform.position;
         enemy.transform.position = GameObject.Find("EnemyOriginalSpawnPoint").transform.position;
+        gameObject.GetComponent<CharacterController>().enabled = false;
+        gameObject.transform.position = GameObject.Find("PlayerOriginalSpawnPoint").transform.position;
+        gameObject.GetComponent<CharacterController>().enabled = true;
 
         // Set mission started boolean false to stop the previous mission to find the forest
         missionStarted = false;
+        isFlashlightOn = false;
+        flashlight.enabled = false;
     }
 }

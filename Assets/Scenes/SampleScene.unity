@@ -2186,6 +2186,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.26
       objectReference: {fileID: 0}
+    - target: {fileID: 1884772632826993460, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1918981188714478043, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       propertyPath: m_Pitch
       value: -3
@@ -2207,7 +2211,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
+      propertyPath: cam.canLookAround
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       propertyPath: movement.canCrouch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
+      propertyPath: cam.shouldLockCursor
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2865145397714950053, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
@@ -2278,6 +2290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5342539554620667157, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7479179358008209566, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2296,6 +2312,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5342539554620667157, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1762202592}
+    - targetCorrespondingSourceObject: {fileID: 5342539554620667157, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762202597}
     - targetCorrespondingSourceObject: {fileID: 6589066491120442620, guid: 7f92fb434ee620248a0f9c6db02af1e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1755685882}
@@ -2416,6 +2435,29 @@ MonoBehaviour:
   timer: 180
   restartButton: {fileID: 1396266651}
   audioData: {fileID: 1947093544}
+--- !u!136 &1762202597
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762202587}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1804065436
 GameObject:
   m_ObjectHideFlags: 0
