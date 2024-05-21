@@ -40,6 +40,8 @@ public class EnemyScript : MonoBehaviour
         if(player.GetComponent<PlayerScript>().enemyIsHunting)
         {
             speed = 7.5f;
+            mAnimator.SetTrigger("TrHunt");
+
         }
 
         if(isChasing)
