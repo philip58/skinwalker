@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     // Enemy speed 
-    public float speed = 5f;
+    public float speed = 3f;
 
     // Player game object
     public GameObject player;

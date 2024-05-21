@@ -214,6 +214,7 @@ public class PlayerScript : MonoBehaviour
         int rand = Random.Range(0, 3);
         cabin.transform.position = cabinSpawnPoints[rand].transform.position;
         missionStarted = true;
+        enemyScript.speed = 3f;
 
         // Re-activate the cabin trigger for game winning logic
         StartCoroutine(ReActivateTrigger(trigger));
@@ -295,6 +296,7 @@ public class PlayerScript : MonoBehaviour
 
         enemy.SetActive(true);
         enemyScript.SetIsChasing(false);
+        enemyScript.speed = 3f;
 
         //Respawn cabin, player and enemy to original spawn points
         cabin.transform.position = GameObject.Find("CabinOriginalSpawnPoint").transform.position;
