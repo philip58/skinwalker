@@ -48,6 +48,11 @@ public class EnemyScript : MonoBehaviour
             // Idle animation
             Debug.Log("Enemy idle...");
         }
+        // If the player gets too close, enemy goes in for the kill
+        if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= 5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
 
         //to face player
     }
