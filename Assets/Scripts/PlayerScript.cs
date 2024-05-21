@@ -54,6 +54,9 @@ public class PlayerScript : MonoBehaviour
     // Public variable for the timer for starting the hunt (in seconds)
     public float timer = 180f;
 
+    //scream sound
+    public AudioSource audioData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +92,9 @@ public class PlayerScript : MonoBehaviour
 
         // Keep win text off until win
         wintext.gameObject.SetActive(false);
+        //get scream sound
+         AudioSource audioData = GetComponent<AudioSource>();
+         if (audioData == null) audioData = gameObject.AddComponent<AudioSource>();
 
     }
 
@@ -212,6 +218,7 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StartChase()
     {
         yield return new WaitForSeconds(20);
+        audioData.Play();
         enemyScript.SetIsChasing(true);
         Debug.Log("Enemy is now chasing the player");
     }
@@ -227,6 +234,8 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator StartTheHunt(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        audioData.Play();
         enemyIsHunting = true;
+
     }
 }

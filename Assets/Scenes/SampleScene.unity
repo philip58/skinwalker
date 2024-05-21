@@ -541,18 +541,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1947093544}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &274626703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2194,6 +2182,7 @@ MonoBehaviour:
   wintext: {fileID: 206200793}
   enemyIsHunting: 0
   timer: 180
+  audioData: {fileID: 1947093544}
 --- !u!1 &1804065436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,12 +2501,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947093543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.07, y: 40.610996, z: -60.58}
+  m_LocalRotation: {x: -0, y: -0.7848776, z: -0, w: 0.6196509}
+  m_LocalPosition: {x: 0.04728561, y: 6.899231, z: 0.13362065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2059296727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017392204
 GameObject:
@@ -2722,6 +2711,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1dbc4d06f882d0e44a9a48ece3874b17, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1947093545}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1dbc4d06f882d0e44a9a48ece3874b17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2017392205}
@@ -3145,4 +3137,3 @@ SceneRoots:
   - {fileID: 526078707}
   - {fileID: 1621884345}
   - {fileID: 253513659}
-  - {fileID: 1947093545}
