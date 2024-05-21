@@ -18,9 +18,15 @@ public class EnemyScript : MonoBehaviour
     // then set to true 5 seconds after beginning sequence (StartGame() in PlayerScript)
     private bool isChasing = false;
 
+    //Animation controller
+    private Animator mAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
+        //get animator
+        mAnimator = GetComponent<Animator>();
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -35,6 +41,8 @@ public class EnemyScript : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             Debug.Log("Enemy chasing...");
+            mAnimator.SetTrigger("TrWalk");
+
         }
         // After the timer goes down, enemy goes into hunting state and constantly chases the player
         else if(player.GetComponent<PlayerScript>().enemyIsHunting == true)
@@ -47,6 +55,7 @@ public class EnemyScript : MonoBehaviour
         {
             // Idle animation
             Debug.Log("Enemy idle...");
+            mAnimator.SetTrigger("TrIdle");
         }
 
         //to face player
