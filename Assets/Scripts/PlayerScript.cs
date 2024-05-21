@@ -38,6 +38,12 @@ public class PlayerScript : MonoBehaviour
     // aka, they have left the original cabin and started their search for the cabin
     private bool missionStarted = false;
 
+    // Boolean for if the 3 minute timer runs out and the enemy is now hunting (chasing to kill)
+    public bool enemyIsHunting = false;
+
+    // Public variable for the timer for starting the hunt (in seconds)
+    public float timer = 180f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,9 +102,11 @@ public class PlayerScript : MonoBehaviour
     // Detect collisions with the player
     private void OnCollisionEnter(Collision collision)
     {
+        // Player collides with enemy
         if (collision.gameObject == GameObject.FindGameObjectWithTag("Enemy"))
         {
             Debug.Log("Hit by enemy: " + collision.gameObject);
+            GameLost();
         }
     }
 
@@ -127,6 +135,15 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Congratulations, you win!!!");
     }
 
+    // Function for losing the game, the player gets killed by the enemy
+    void GameLost()
+    {
+        Debug.Log("You lost!!!");
+        // Set the chasing and hunting value to false to stop the enemy
+        enemyIsHunting = false;
+        enemyScript.SetIsChasing(false);
+    }
+
     // Function for starting the game once player leaves the cabin for the first time
     // Beginning sequence teleport cabin randomly, starter cutscene, possible text objective etc.
     void StartGame(GameObject trigger)
@@ -142,6 +159,9 @@ public class PlayerScript : MonoBehaviour
 
         // Set the enemy to chase the player
         StartCoroutine(StartChase());
+
+        // Set the timer for the hunt to start where enemy chases the player constantly
+        StartCoroutine(StartTheHunt(timer));
     } 
 
     // On play game button clicked, start game for player, disable button and enable movement
@@ -167,5 +187,12 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         trigger.gameObject.SetActive(true);
+    }
+
+    // Coroutine for setting the timer, after the seconds inputted, start the enemy's hunt for the player
+    private IEnumerator StartTheHunt(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        enemyIsHunting = true;
     }
 }
