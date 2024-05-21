@@ -36,6 +36,20 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If enemy is hunting, increase speed 
+        if(player.GetComponent<PlayerScript>().enemyIsHunting)
+        {
+            speed = 7.5f;
+        }
+
+        if(isChasing)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            mAnimator.SetTrigger("TrWalk");
+        }
+
+        // Enemy behavior changed, no idle state 
+        /*
         // Enemy chases the player when the distance between itself and the player is greater than the chase distance
         if (isChasing && Vector3.Distance(transform.position, player.transform.position) > chaseDistance && player.GetComponent<PlayerScript>().enemyIsHunting == false)
         {
@@ -52,6 +66,7 @@ public class EnemyScript : MonoBehaviour
             mAnimator.SetTrigger("TrHunt");
 
         }
+        
         // Idle state, enemy is within the chase distance and isn't in hunting state so it stands still
         else if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= chaseDistance && player.GetComponent<PlayerScript>().enemyIsHunting == false)
         {
@@ -59,6 +74,13 @@ public class EnemyScript : MonoBehaviour
             Debug.Log("Enemy idle...");
             mAnimator.SetTrigger("TrIdle");
         }
+        // If the player gets too close, enemy goes in for the kill
+        if(isChasing && Vector3.Distance(transform.position, player.transform.position) <= 5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+        */
+        
 
         //to face player
     }

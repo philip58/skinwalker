@@ -57,7 +57,6 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         // Get the cabin and cabin spawn points for game logic
         cabin = GameObject.FindGameObjectWithTag("Cabin");
 
@@ -84,9 +83,11 @@ public class PlayerScript : MonoBehaviour
         flashlight = GameObject.Find("Flashlight").GetComponent<Light>();
 
         Debug.Log("Flashlight: " + flashlight);
-        //Keep video off until collision
+
+        // Keep video off until collision
         jumpscarePlayer.SetActive(false);
-        //Keep win text off until win
+
+        // Keep win text off until win
         wintext.gameObject.SetActive(false);
 
     }
@@ -110,6 +111,13 @@ public class PlayerScript : MonoBehaviour
                 flashlight.enabled = !isFlashlightOn;
                 isFlashlightOn = !isFlashlightOn;
             }
+        }
+        else
+        {
+            transform.position = new Vector3(-22.9500008f,34.8069992f,-88.2099991f);
+            GameObject.Find("Camera Head").transform.rotation = Quaternion.Euler(0,0,0);
+            GameObject.Find("Player Camera").transform.rotation = Quaternion.Euler(0,0,0);
+            transform.rotation = Quaternion.Euler(0,351.703644f,0);
         }
     
     }
