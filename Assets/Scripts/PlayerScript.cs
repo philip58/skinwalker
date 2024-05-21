@@ -38,6 +38,16 @@ public class PlayerScript : MonoBehaviour
     // aka, they have left the original cabin and started their search for the cabin
     private bool missionStarted = false;
 
+    //Jumpscare
+    //Time to stop determines when video will end
+    public GameObject jumpscarePlayer;
+    public int timeToStop;
+
+    //Text fields
+    //Intro Text
+    public TextMeshProUGUI introtext;
+    //Win Text
+    public TextMeshProUGUI wintext;
     // Boolean for if the 3 minute timer runs out and the enemy is now hunting (chasing to kill)
     public bool enemyIsHunting = false;
 
@@ -47,6 +57,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         // Get the cabin and cabin spawn points for game logic
         cabin = GameObject.FindGameObjectWithTag("Cabin");
 
@@ -73,6 +84,10 @@ public class PlayerScript : MonoBehaviour
         flashlight = GameObject.Find("Flashlight").GetComponent<Light>();
 
         Debug.Log("Flashlight: " + flashlight);
+        //Keep video off until collision
+        jumpscarePlayer.SetActive(false);
+        //Keep win text off until win
+        wintext.gameObject.SetActive(false);
 
     }
 
@@ -106,6 +121,12 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject == GameObject.FindGameObjectWithTag("Enemy"))
         {
             Debug.Log("Hit by enemy: " + collision.gameObject);
+
+            //jumpscare video to play
+            jumpscarePlayer.SetActive(true);
+          
+          //destroys video player after timeToStop seconds
+          //  Destroy(jumpscarePlayer, timeToStop);
             GameLost();
         }
     }
@@ -133,6 +154,9 @@ public class PlayerScript : MonoBehaviour
     void GameWon()
     {
         Debug.Log("Congratulations, you win!!!");
+        
+        wintext.gameObject.SetActive(true);
+
     }
 
     // Function for losing the game, the player gets killed by the enemy
@@ -167,6 +191,8 @@ public class PlayerScript : MonoBehaviour
     // On play game button clicked, start game for player, disable button and enable movement
     public void PlayGame()
     {
+        introtext.gameObject.SetActive(false);
+
         button.gameObject.SetActive(false);
         isLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
