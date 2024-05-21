@@ -36,6 +36,11 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Rotate enemy to player's position constantly
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed);
+
         // If enemy is hunting, increase speed 
         if(player.GetComponent<PlayerScript>().enemyIsHunting)
         {
@@ -44,6 +49,7 @@ public class EnemyScript : MonoBehaviour
 
         }
 
+        // Enemy chases player during the timer before the hunt phase
         if(isChasing)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
