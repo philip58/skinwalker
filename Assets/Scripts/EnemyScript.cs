@@ -40,6 +40,8 @@ public class EnemyScript : MonoBehaviour
         if(player.GetComponent<PlayerScript>().enemyIsHunting)
         {
             speed = 7.5f;
+            mAnimator.SetTrigger("TrHunt");
+
         }
 
         if(isChasing)
@@ -73,6 +75,8 @@ public class EnemyScript : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             Debug.Log("Enemy hunting...");
+            mAnimator.SetTrigger("TrHunt");
+
         }
         
         // Idle state, enemy is within the chase distance and isn't in hunting state so it stands still
