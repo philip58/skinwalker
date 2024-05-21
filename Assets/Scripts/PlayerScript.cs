@@ -236,7 +236,7 @@ public class PlayerScript : MonoBehaviour
     // Coroutine function to make the enemy chase the player 5 seconds after leaving the cabin
     private IEnumerator StartChase()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(10);
         enemyScript.SetIsChasing(true);
         Debug.Log("Enemy is now chasing the player");
     }
