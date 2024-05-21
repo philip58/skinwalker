@@ -275,6 +275,7 @@ public class PlayerScript : MonoBehaviour
 
         // Disable jumpscare 
         jumpscarePlayer.GetComponent<VideoPlayer>().Stop();
+        jumpscarePlayer.SetActive(false);
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
