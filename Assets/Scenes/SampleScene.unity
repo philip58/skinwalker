@@ -1865,6 +1865,8 @@ MonoBehaviour:
   timeToStop: 500
   introtext: {fileID: 1598650914}
   wintext: {fileID: 206200793}
+  enemyIsHunting: 0
+  timer: 180
 --- !u!1 &1804065436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,6 +2201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   player: {fileID: 1762202587}
+  chaseDistance: 10
 --- !u!54 &2059296725
 Rigidbody:
   m_ObjectHideFlags: 0
